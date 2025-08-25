@@ -1,5 +1,5 @@
 /**
- * Server entry: connect DB, start http server, and handle graceful shutdown ...
+ * Server entry: connect DB, start http server, and handle graceful shutdown (server close) ...
  */
 
 import app from './app.js';
