@@ -1,8 +1,5 @@
 const importPlugin = require('eslint-plugin-import');
 const prettierPlugin = require('eslint-plugin-prettier');
-const promisePlugin = require('eslint-plugin-promise');
-const sortDestructureKeysPlugin = require('eslint-plugin-sort-destructure-keys');
-const sortKeysFixPlugin = require('eslint-plugin-sort-keys-fix');
 
 module.exports = [
   {
@@ -18,91 +15,67 @@ module.exports = [
     },
     plugins: {
       import: importPlugin,
-
       prettier: prettierPlugin,
-
-      promise: promisePlugin,
-
-      'sort-destructure-keys': sortDestructureKeysPlugin,
-      'sort-keys-fix': sortKeysFixPlugin,
     },
     rules: {
-      'array-bracket-spacing': 'off',
+      // ===============================
+      // CODE QUALITY RULES
+      // ===============================
 
-      'callback-return': 'off',
-
-      'comma-dangle': 'off',
-
+      // Enforce consistent brace style
       curly: ['error', 'all'],
 
+      // Require strict equality operators
       eqeqeq: ['error', 'always'],
 
-      'global-require': 'off',
+      // Disallow unused variables (ignore those starting with _)
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
 
-      'handle-callback-err': 'warn',
+      // Disallow early returns when if-else can be used
+      'no-else-return': 'error',
 
-      // 🔑 Ensure dependencies are declared in package.json
+      // Warn about console statements (should use proper logging)
+      'no-console': 'warn',
+
+      // ===============================
+      // IMPORT/MODULE RULES
+      // ===============================
+
+      // Ensure all imports are declared in package.json
       'import/no-extraneous-dependencies': 'error',
 
-      // 🔑 Sort and group imports/requires
+      // Sort and group imports for better readability
       'import/order': [
         'error',
         {
-          alphabetize: {
-            // A → Z
-            caseInsensitive: true,
-            order: 'asc',
-          },
-
           groups: [
             'builtin', // Node.js built-ins (fs, path, etc.)
             'external', // npm packages
-            'internal', // your own modules (like src/, @/)
+            'internal', // your own modules
             ['parent', 'sibling', 'index'], // relative imports
-            'object',
-            'type', // TypeScript types
           ],
-
           'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
         },
       ],
 
-      // 🚫 Remove stylistic overlaps (Prettier handles these)
-      indent: 'off',
+      // ===============================
+      // PRETTIER INTEGRATION
+      // ===============================
 
-      'no-buffer-constructor': 'error',
-
-      'no-console': 'warn',
-
-      'no-else-return': 'error',
-
-      'no-mixed-requires': 'warn',
-
-      'no-new-require': 'error',
-
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-
-      'object-curly-spacing': 'off',
-
-      // ✅ Prettier as ESLint rule
+      // Use Prettier for code formatting
       'prettier/prettier': 'error',
 
-      'promise/always-return': 'off',
-
-      // ✅ Forces you to handle promises (avoid silent errors)
-      'promise/catch-or-return': 'error',
-
+      // Disable ESLint formatting rules that conflict with Prettier
+      'array-bracket-spacing': 'off',
+      'comma-dangle': 'off',
+      indent: 'off',
+      'object-curly-spacing': 'off',
       quotes: 'off',
-
       semi: 'off',
-
-      // 🔑 Sort destructured object keys
-      'sort-destructure-keys/sort-destructure-keys': [
-        'error',
-        { caseSensitive: false },
-      ],
-      // 🔑 Sort object keys (e.g., module.exports)
-      'sort-keys-fix/sort-keys-fix': 'warn',
     },
   },
 ];
