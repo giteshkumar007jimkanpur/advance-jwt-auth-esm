@@ -40,7 +40,6 @@ const customJsonFormat = format.printf((info) => {
     timestamp: info.timestamp,
   };
 
-  // Then technical details
   if (info.status !== undefined) {
     ordered.status = info.status;
   }

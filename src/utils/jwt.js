@@ -38,7 +38,7 @@ const signRefreshToken = (payload = {}) => {
     issuer,
   };
   return jwt.sign(
-    { ...payload, iat: now, jti, typ: 'fresh' },
+    { ...payload, iat: now, jti, typ: 'refresh' },
     refreshTokenSecret,
     opts,
   );

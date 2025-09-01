@@ -5,16 +5,17 @@ import { isProd, refreshTokenExpiry } from '../config/secret-keys.js';
 export const setRefreshCookie = (res, token) => {
   res.cookie('refreshToken', token, {
     httpOnly: true,
-    maxAge: ms(refreshTokenExpiry) / 1000,
-    sameSite: 'strict',
+    maxAge: ms(refreshTokenExpiry),
+    sameSite: isProd ? 'strict' : 'lax',
     secure: isProd,
   });
 };
 
 export const clearRefreshCookie = (res) => {
-  res.cookie('refreshToken', {
+  res.cookie('refreshToken', '', {
     httpOnly: true,
-    sameSite: 'strict',
+    expires: new Date(0), // past date to force expire
+    sameSite: isProd ? 'strict' : 'lax',
     secure: isProd,
   });
 };
