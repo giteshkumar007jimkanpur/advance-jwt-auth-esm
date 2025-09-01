@@ -34,10 +34,10 @@ const addRequestId = format((info) => {
 /** Custom JSON formatter with property order control */
 const customJsonFormat = format.printf((info) => {
   const ordered = {
+    timestamp: info.timestamp,
     level: info.level,
     message: info.message,
     requestId: info.requestId,
-    timestamp: info.timestamp,
   };
 
   if (info.status !== undefined) {

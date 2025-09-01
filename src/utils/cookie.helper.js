@@ -13,8 +13,8 @@ export const setRefreshCookie = (res, token) => {
 
 export const clearRefreshCookie = (res) => {
   res.cookie('refreshToken', '', {
-    httpOnly: true,
-    expires: new Date(0), // past date to force expire
+    expires: new Date(0),
+    httpOnly: true, // past date to force expire
     sameSite: isProd ? 'strict' : 'lax',
     secure: isProd,
   });
