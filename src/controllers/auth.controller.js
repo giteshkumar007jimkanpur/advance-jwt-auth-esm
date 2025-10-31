@@ -45,7 +45,7 @@ export const register = async (req, res, next) => {
 
     return res.status(201).json({
       accessToken,
-      expiresIn: ms(refreshTokenExpiry) / 1000,
+      expiresIn: ms(accessTokenExpiry) / 1000,
       tokenType: 'Bearer',
       user: userObj,
     });
@@ -84,7 +84,6 @@ export const login = async (req, res, next) => {
 
     return res.status(200).json({
       accessToken,
-      refreshToken,
       expiresIn: ms(accessTokenExpiry) / 1000,
       tokenType: 'Bearer',
       user: userObj,
